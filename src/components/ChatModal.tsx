@@ -6,11 +6,11 @@ import { SendButton } from "./SendButton";
 export function ChatModal() {
   const [messages, setMessages] = useState(["hi there"]);
   const messageRef = useRef<HTMLInputElement>(null);
-  // const wsRef = useRef();
-  const ws = new WebSocket("ws://localhost:8080");
+  const wsRef = useRef<WebSocket>(null);
   useEffect(() => {
+    const ws = new WebSocket("ws://localhost:8080");
     ws.onmessage = (event) => [setMessages((m) => [...m, event.data])];
-    // wsRef.current = ws;
+    wsRef.current = ws;
 
     ws.onopen = () => {
       ws.send(
@@ -40,8 +40,8 @@ export function ChatModal() {
           <SendButton
             text={"Send"}
             onClick={() => {
-              const message = messageRef.current?.value;
-              ws.send(
+              const message = messageRef.current.value;
+              wsRef.current?.send(
                 JSON.stringify({
                   type: "chat",
                   payload: {

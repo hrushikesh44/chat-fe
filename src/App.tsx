@@ -2,7 +2,7 @@ import { ChatModal } from "./components/ChatModal";
 
 function App() {
   return (
-    <div className="w-full h-[100vh] bg-slate-700">
+    <div className="w-full h-[100vh] bg-black">
       <ChatModal />
     </div>
   );
